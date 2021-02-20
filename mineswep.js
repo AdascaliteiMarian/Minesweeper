@@ -23,7 +23,7 @@ addMines();
 });
 
 function addMines(){
-    for(var i = 0; i < 5; ++i){
+    for(var i = 0; i < 20; ++i){
         var row = Math.floor(Math.random() * 10);
         var col = Math.floor(Math.random() * 10);
         var cell = grid.rows[row].cells[col];

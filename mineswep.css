@@ -1,0 +1,36 @@
+BODY {
+  background: rgb(102, 94, 94);
+  color: #DDDDDD;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
+#grid {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#grid TR TD{
+  border:3px solid white;
+  background: #504848;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+#grid TR TD:hover{
+  background-color: blanchedalmond;
+  cursor: pointer;
+}
+
+h1 {
+  background-color: black;
+}
+
+#grid TR TD.clicked {
+  background-color: blue;
+}
+
+#grid TR TD.mine {
+  background-color: red;
+}
+

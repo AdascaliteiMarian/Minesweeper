@@ -31,7 +31,7 @@ function addMines(){
     }
 }
 
-function revealMines() {
+function showMines() {
     for(var i = 0; i < 10; ++i){
         for(var j = 0; j < 10; ++j){
            var cell = grid.rows[i].cells[j];
@@ -86,6 +86,6 @@ function clickCell(cell){
             }
         }
     }
-    checkifWon()
+    checkGameCompletion()
     }
 }

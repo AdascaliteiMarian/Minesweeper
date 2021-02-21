@@ -2,28 +2,28 @@ var grid = document.getElementById("grid");
 
 document.addEventListener("DOMContentLoaded", function() {
 
-for(var i = 0; i <10; ++i){
-    row = grid.insertRow(i);
-    for(var j = 0; j < 10; ++j){
-        cell = row.insertCell(j);
-        cell.onclick = function() {
-            clickCell(this)
-        }
-        cell.oncontextmenu = function(){
-            rightclick(this);
-        }
-    var mine = document.createAttribute("data-mine");       
-    mine.value = "false";    
-    cell.setAttributeNode(mine); 
+    for(var i = 0; i <10; ++i) {
+        row = grid.insertRow(i);
+        for(var j = 0; j < 10; ++j) {
+            cell = row.insertCell(j);
+            cell.onclick = function() {
+                clickCell(this)
+            }
+            cell.oncontextmenu = function() {
+                rightclick(this);
+            }
+            var mine = document.createAttribute("data-mine");       
+            mine.value = "false";    
+            cell.setAttributeNode(mine); 
           
       
-    }
-}
-addMines();
+        }
+    }   
+    addMines();
 });
 
 function addMines(){
-    for(var i = 0; i < 20; ++i){
+    for(var i = 0; i < 5; ++i){
         var row = Math.floor(Math.random() * 10);
         var col = Math.floor(Math.random() * 10);
         var cell = grid.rows[row].cells[col];
@@ -36,23 +36,31 @@ function showMines() {
         for(var j = 0; j < 10; ++j){
            var cell = grid.rows[i].cells[j];
             if (cell.getAttribute("data-mine")=="true") {
-            cell.className="mine";
+                cell.className="mine";
             }
         }
     }
 }
 
-function checkifWon(){
+function checkGameCompletion(){
     var won = true;
     for (var i=0; i<10; i++) {
-      for(var j=0; j<10; j++) {
-        if ((grid.rows[i].cells[j].getAttribute("data-mine")=="false") && (grid.rows[i].cells[j].innerHTML=="")) won = false;
-      }
+        for(var j=0; j<10; j++) {
+            if (checkCellState(i,j)){
+                won  = false;
+            }
+        }
+    }
+    if (won) {
+        alert("You Win!");
+        showMines();
   }
-  if (won) {
-    alert("You Win!");
-    revealMines();
-  }
+}
+
+function checkCellState(i,j){
+    if((grid.rows[i].cells[j].getAttribute("data-mine")=="false") && (grid.rows[i].cells[j].innerHTML=="")){
+        return true
+    }
 }
 
 function rightclick(cell) {
@@ -61,10 +69,9 @@ function rightclick(cell) {
 }
 
 function clickCell(cell){
-    
     if(cell.getAttribute("data-mine") == "true"){
         alert("Game Over");
-        revealMines();
+        showMines();
     } else {
         cell.className = "clicked"
     var countMines = 0;
@@ -75,14 +82,16 @@ function clickCell(cell){
         for(var j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,9); j++) {
             if(grid.rows[i].cells[j].getAttribute("data-mine") == "true"){
                 ++countMines
-        } 
+            } 
+        }
     }
-}
     cell.innerHTML = countMines;
     if(countMines == 0){
         for (var i=Math.max(cellRow-1,0); i<=Math.min(cellRow+1,9); i++) {
             for(var j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,9); j++) { 
-                if (grid.rows[i].cells[j].innerHTML=="") clickCell(grid.rows[i].cells[j]);
+                if (grid.rows[i].cells[j].innerHTML=="") {
+                    clickCell(grid.rows[i].cells[j]);
+                }
             }
         }
     }

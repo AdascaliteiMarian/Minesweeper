@@ -45,7 +45,7 @@ function checkGameCompletion(){
     var won = true;
     for (var i=0; i<10; i++) {
         for(var j=0; j<10; j++) {
-            if (cellEmpty(i,j)){
+            if (checkCellState(i,j)){
                 won  = false;
             }
         }
@@ -56,7 +56,7 @@ function checkGameCompletion(){
   }
 }
 
-function cellEmpty(i,j){
+function checkCellState(i,j){
     if((grid.rows[i].cells[j].getAttribute("data-mine")=="false") && (grid.rows[i].cells[j].innerHTML=="")){
         return true
     }
